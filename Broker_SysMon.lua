@@ -14,6 +14,14 @@ local UPDATE_RATE_MEMORY = 30
 --[[ End config ]]
 
 local format = string.format
+
+-- Backwards-compat shims as the Addon-API was moved to C_AddOns
+local GetNumAddOns           = C_AddOns and C_AddOns.GetNumAddOns           or GetNumAddOns
+local IsAddOnLoaded          = C_AddOns and C_AddOns.IsAddOnLoaded          or IsAddOnLoaded
+local GetAddOnInfo           = C_AddOns and C_AddOns.GetAddOnInfo           or GetAddOnInfo
+local GetAddOnMemoryUsage    = C_AddOns and C_AddOns.GetAddOnMemoryUsage    or GetAddOnMemoryUsage
+local UpdateAddOnMemoryUsage = C_AddOns and C_AddOns.UpdateAddOnMemoryUsage or UpdateAddOnMemoryUsage
+
 local broker = LibStub("LibDataBroker-1.1")
 local L = LibStub("AceLocale-3.0"):GetLocale("Broker_SysMon")
 local Crayon = LibStub:GetLibrary("LibCrayon-3.0", true)
@@ -175,4 +183,3 @@ f:SetScript("OnEvent", function(self, event, addon)
 end)
 f:RegisterEvent("PLAYER_LOGIN")
 f:Show()
-
